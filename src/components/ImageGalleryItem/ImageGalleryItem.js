@@ -6,6 +6,7 @@ export const ImageGalleryItem = ({
   smallImage,
   largeImage,
   openModal,
+  
 }) => {
   return (
     <GalleryItem

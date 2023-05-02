@@ -1,5 +1,4 @@
-import { Component } from 'react'
-// import { toast } from 'react-toastify';
+import { Component } from 'react';
 import { toast } from 'react-hot-toast';
 import PropTypes from "prop-types"
 import { Form, FormButton, Label, Input, Header} from './SearchBar.styled'
@@ -11,18 +10,18 @@ export class SearchBar extends Component{
     onSubmit:PropTypes.func.isRequired,
 }
 
-  state = { query: '' }
+  state = { searchQuery: '' }
   onChange = event => {
-    this.setState({ query: event.currentTarget.value})
+    this.setState({ searchQuery: event.currentTarget.value})
   } 
   onSubmit = event => {
     event.preventDefault();
 
-    if (!this.state.query.trim()) {
+    if (!this.state.searchQuery.trim()) {
       return toast.error('please type something');
     }
 
-      this.props.onSubmit(this.state.query)
+      this.props.onSubmit(this.state.searchQuery)
   }
   render() {
     return (

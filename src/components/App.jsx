@@ -8,13 +8,13 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchImages } from './imageApi';
 import {Loader} from './Loader/Loader'
 import { Modal } from './Modal/Modal';
-// import { Instance } from 'modal';
-// import {ImageGalleryNew} from './ImageGallery/ImageGallery'
+
+
 
 export class App extends Component {
   state = {
     images: [],
-    query: '',
+    searchQuery: '',
     page: 1,
     isLoading: false,
     totalHits: 0,
@@ -24,11 +24,11 @@ export class App extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
+    const { searchQuery, page } = this.state;
 
-    if (prevState.query !== query || prevState.page !== page) {
+    if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
       this.setState({ isLoading: true });
-      fetchImages(query, page)
+      fetchImages(searchQuery, page)
         .then(({ hits, totalHits }) => {
           if (!totalHits) {
             console.log(totalHits, hits);
@@ -55,10 +55,10 @@ export class App extends Component {
     }
   }
 
-  submitHandler = query => {
+  submitHandler = searchQuery => {
     window.scrollTo({ behavior: 'smooth', top: 0 });
     this.setState({
-      query,
+      searchQuery,
       images: [],
       page: 1,
       totalHits: 0,
@@ -77,7 +77,7 @@ export class App extends Component {
 
   render() {
     const { isLoading, images, totalHits, activeImage } = this.state;
-    // const { query} = this.state;
+
     return (
       <AppStyled>
         <SearchBar onSubmit={this.submitHandler} />
@@ -93,7 +93,7 @@ export class App extends Component {
         <GlobalStyle/>
        
 
-{/* <Instance/> */}
+
       </AppStyled>
     );
   }
