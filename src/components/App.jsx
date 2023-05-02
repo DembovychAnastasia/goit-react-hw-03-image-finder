@@ -5,7 +5,7 @@ import { AppStyled } from './App.styled';
 import { SearchBar } from './SearchBar/SearchBar';
 import { Button } from './Button/Button';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { fetchImages } from './imageApi';
+import { fetchImages } from '../api/imageApi';
 import {Loader} from './Loader/Loader'
 import { Modal } from './Modal/Modal';
 

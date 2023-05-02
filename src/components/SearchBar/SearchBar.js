@@ -10,23 +10,41 @@ export class SearchBar extends Component{
     onSubmit:PropTypes.func.isRequired,
 }
 
+
   state = { searchQuery: '' }
   onChange = event => {
     this.setState({ searchQuery: event.currentTarget.value})
+   
+   
   } 
+  clearForm = () => {
+    document.getElementById("myForm").reset(); 
+    this.setState({
+      searchQuery: ""
+    })
+  }
+
   onSubmit = event => {
     event.preventDefault();
 
-    if (!this.state.searchQuery.trim()) {
-      return toast.error('please type something');
-    }
+    if (this.state.searchQuery.trim()=== '') {
+      return  (toast.error('please type something')
+      )
 
+    }
       this.props.onSubmit(this.state.searchQuery)
+      this.setState({ searchQuery: ''})
+      this.clearForm()
+    
+  
   }
+  
+
+
   render() {
     return (
 <Header>
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} id="myForm">
           
     <FormButton type="submit">
         <Label>Search</Label>
@@ -38,7 +56,7 @@ export class SearchBar extends Component{
       autoFocus
       placeholder="Search images and photos"
       onChange={this.onChange}
-          
+      
       />
           
   </Form>
