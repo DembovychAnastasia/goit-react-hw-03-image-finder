@@ -58,7 +58,7 @@ export class App extends Component {
 
   submitHandler = searchQuery => {
     if (searchQuery === this.state.searchQuery) {
-      return; 
+      return (toast(' That was images for your request')) 
     }
     window.scrollTo({ behavior: 'smooth', top: 0 });
     this.setState({
