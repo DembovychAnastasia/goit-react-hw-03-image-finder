@@ -1,4 +1,5 @@
 import { Component } from 'react';
+// import PropTypes from 'prop-types';
 import { GlobalStyle } from "./GlobalStyle";
 import  toast, { Toaster } from 'react-hot-toast';
 import { AppStyled } from './App.styled';
@@ -12,6 +13,7 @@ import { Modal } from './Modal/Modal';
 
 
 export class App extends Component {
+  
   state = {
     images: [],
     searchQuery: '',
@@ -22,11 +24,9 @@ export class App extends Component {
     activeImage: null,
   };
 
-
   componentDidUpdate(prevProps, prevState) {
     const { searchQuery, page } = this.state;
-
-    if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
+    if ((prevState.searchQuery !== searchQuery || prevState.page !== page)){
       this.setState({ isLoading: true });
       fetchImages(searchQuery, page)
         .then(({ hits, totalHits }) => {
@@ -55,7 +55,11 @@ export class App extends Component {
     }
   }
 
+
   submitHandler = searchQuery => {
+    if (searchQuery === this.state.searchQuery) {
+      return; 
+    }
     window.scrollTo({ behavior: 'smooth', top: 0 });
     this.setState({
       searchQuery,
@@ -63,8 +67,14 @@ export class App extends Component {
       page: 1,
       totalHits: 0,
     });
-  };
 
+   
+  
+  };
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+ 
   onLoadMoreButton = () => {
     this.setState(({ page }) => ({
       page: page + 1,
@@ -73,6 +83,7 @@ export class App extends Component {
 
   onImageClick = (activeImage = null) => {
     this.setState({ activeImage });
+    
   };
 
   render() {
@@ -80,7 +91,7 @@ export class App extends Component {
 
     return (
       <AppStyled>
-        <SearchBar onSubmit={this.submitHandler} />
+        <SearchBar onSubmit={this.submitHandler}  onChange={this.handleChange}  value={this.state.value}/>
         <ImageGallery images={images} openModal={this.onImageClick} />
         {totalHits > images.length && !isLoading && (
           <Button onLoadMoreButton={this.onLoadMoreButton} />
